@@ -11,3 +11,5 @@ python artcheck.py > file
 ```
 
 I threw this together last night, so it's not supposed to be pristine, just functional.
+
+The output is produced as json, so you can use something like http://jsonlint.com/ to format it nicely.
