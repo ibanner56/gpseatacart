@@ -5,7 +5,7 @@ GPSTART.csv has the full list of all cards illustrated by artists attending the 
 
 Put all cards you want to check for into "cards.txt" - there are a bunch in there already as an example of the format to use.
 
-Output goes to the command line, so if you want to save the data use something like 
+Output goes to the command line, so if you want to save the data use something like:
 ```
 python artcheck.py > file
 ```
