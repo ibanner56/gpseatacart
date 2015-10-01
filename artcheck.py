@@ -1,3 +1,5 @@
+import json
+
 def main():
 	artcards = open("GPSTART.csv")
 	cards = open("cards.txt")
@@ -24,5 +26,5 @@ def main():
 		line = line.strip()
 		if(line in datastore):
 			result[line] = datastore[line]
-	print(result)
+	print(json.dumps(result))
 main()
