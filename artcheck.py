@@ -3,6 +3,7 @@ from flask import *
 
 app = Flask(__name__)
 datastore = {}
+secondary_lkup = {}
 
 def init():
 	artcards = open("data/GPSTART.csv")
@@ -25,6 +26,10 @@ def init():
 			datastore[index]["printings"].append(printing)
 		else:
 			datastore[index] = {"name": name, "artist": artist, "printings": [printing], "multiverseid": multiverseid}
+			if(name in secondary_lkup):
+				secondary_lkup[name].append(index)
+			else:
+				secondary_lkup[name] = [index]
 
 @app.route('/query', methods=['POST'])
 def query_datastore():
@@ -34,9 +39,10 @@ def query_datastore():
 	results["cards"] = []
 	
 	for card in request.json["cards"]:
-		if card in datastore:
-			results["cards"].append(datastore[card])
-
+		if card in secondary_lkup:
+			for index in secondary_lkup[card]:
+				results["cards"].append(datastore[index])
+	
 	return jsonify(results), 200
 
 if __name__ == '__main__':
