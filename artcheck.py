@@ -26,6 +26,7 @@ def init():
 			datastore[index]["printings"].append(printing)
 		else:
 			datastore[index] = {"name": name, "artist": artist, "printings": [printing], "multiverseid": multiverseid}
+			name = name.lower()
 			if(name in secondary_lkup):
 				secondary_lkup[name].append(index)
 			else:
@@ -39,6 +40,7 @@ def query_datastore():
 	results["cards"] = []
 	
 	for card in request.json["cards"]:
+		card = card.lower()
 		if card in secondary_lkup:
 			for index in secondary_lkup[card]:
 				results["cards"].append(datastore[index])
