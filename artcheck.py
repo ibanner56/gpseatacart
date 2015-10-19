@@ -19,10 +19,12 @@ def init():
 			multiverseid = data[2].split("=")[1]
 		artist = data[3]
 		printing = data[6].strip()
-		if(name in datastore):
-			datastore[name]["printings"].append(printing)
+		index = artist + "/" + name		
+
+		if(index in datastore):
+			datastore[index]["printings"].append(printing)
 		else:
-			datastore[name] = {"name": name, "artist": artist, "printings": [printing], "multiverseid": multiverseid}
+			datastore[index] = {"name": name, "artist": artist, "printings": [printing], "multiverseid": multiverseid}
 
 @app.route('/query', methods=['POST'])
 def query_datastore():
