@@ -1,6 +1,10 @@
 # gpseatacart
 Quick python hack to check cards against the artists attending GP Seattle/Tacoma
 
+For the code that I have running on the backend of the web version, switch to the "server" branch.
+
+----
+
 GPSTART.csv has the full list of all cards illustrated by artists attending the GP. It's pulled directly from Gatherer's "checklist" view, so it's a bit of a mess. Doesn't really matter, the script cleans up the output a bit.
 
 Put all cards you want to check for into "cards.txt" - there are a bunch in there already as an example of the format to use.
