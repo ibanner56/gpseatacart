@@ -17,14 +17,15 @@ def main():
 			multiverseid = data[2].split("=")[1]
 		artist = data[3]
 		printing = data[6].strip()
-		if(name in datastore):
-			datastore[name]["printings"].append(printing)
+		index = name.lower()
+		if(index in datastore):
+			datastore[index]["printings"].append(printing)
 		else:
-			datastore[name] = {"artist": artist, "printings": [printing], "multiverseid": multiverseid}
+			datastore[index] = {"artist": artist, "printings": [printing], "multiverseid": multiverseid}
 	
 	for line in cards:
 		line = line.strip()
-		if(line in datastore):
-			result[line] = datastore[line]
+		if(line.lower() in datastore):
+			result[line] = datastore[line.lower()]
 	print(json.dumps(result))
 main()
