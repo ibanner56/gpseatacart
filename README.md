@@ -1,7 +1,7 @@
 # gpseatacart
 Quick python hack to check cards against the artists attending GP Seattle/Tacoma
 
-For the code that I have running on the backend of the web version, switch to the "server" branch.
+For the code running on the backend of the web version, switch to the "server" branch.
 
 ----
 
