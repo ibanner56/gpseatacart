@@ -1,11 +1,13 @@
-import json
+#!flask/bin/python
+from flask import *
 
-def main():
-	artcards = open("GPSTART.csv")
-	cards = open("cards.txt")
-	datastore = {}
-	result = {}	
+app = Flask(__name__)
+datastore = {}
 
+def init():
+	artcards = open("data/GPSTART.csv")
+
+	# Parse the cards database
 	for line in artcards:
 		data = line.split(",")
 		if(len(data) > 7):
@@ -20,11 +22,21 @@ def main():
 		if(name in datastore):
 			datastore[name]["printings"].append(printing)
 		else:
-			datastore[name] = {"artist": artist, "printings": [printing], "multiverseid": multiverseid}
+			datastore[name] = {"name": name, "artist": artist, "printings": [printing], "multiverseid": multiverseid}
+
+@app.route('/query', methods=['POST'])
+def query_datastore():
+	if not request.json or not 'cards' in request.json:
+		abort(400)
+	results = {}
+	results["cards"] = []
 	
-	for line in cards:
-		line = line.strip()
-		if(line in datastore):
-			result[line] = datastore[line]
-	print(json.dumps(result))
-main()
+	for card in request.json["cards"]:
+		if card in datastore:
+			results["cards"].append(datastore[card])
+
+	return jsonify(results), 200
+
+if __name__ == '__main__':
+	init()
+	app.run(debug=True, host='0.0.0.0')
