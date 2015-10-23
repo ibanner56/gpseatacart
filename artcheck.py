@@ -32,7 +32,14 @@ def init():
 			else:
 				secondary_lkup[name] = [index]
 
-@app.route('/query', methods=['POST'])
+@app.route('/', methods=['OPTIONS'])
+def query_options():
+	response = Response()
+	response.headers['Access-Control-Allow-Origin'] = '*'
+	response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+	return response
+
+@app.route('/', methods=['POST'])
 def query_datastore():
 	if not request.json or not 'cards' in request.json:
 		abort(400)
@@ -45,8 +52,12 @@ def query_datastore():
 			for index in secondary_lkup[card]:
 				results["cards"].append(datastore[index])
 	
-	return jsonify(results), 200
+	response = jsonify(results)
+	response.headers['Access-Control-Allow-Origin'] = '*'
+	response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+
+	return response, 200
 
 if __name__ == '__main__':
 	init()
-	app.run(debug=True, host='0.0.0.0')
+	app.run(host='0.0.0.0')
